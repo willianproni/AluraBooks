@@ -15,7 +15,7 @@ No decorrer da formação nós vamos implementar toda a camada de comunicação 
 
 ## ✔️ Técnicas e tecnologias utilizadas
 
-Se liga nessa lista de tudo que usaremos nessa formação:
+Se liga nessa lista de tudo que utilizamos:
 
 - `React`
 - `React Hooks`
