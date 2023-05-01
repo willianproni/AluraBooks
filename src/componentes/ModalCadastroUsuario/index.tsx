@@ -4,8 +4,14 @@ import { useState } from "react"
 import imagemPrincipal from './assets/login.png'
 
 import './ModalCadastroUsuario.css'
+import http from "../../http";
 
-const ModalCadastroUsuario = () => {
+type ModalCadastroUsuarioProps = {
+    aberto: boolean;
+    aoFechar: () => void
+}
+
+const ModalCadastroUsuario = ({ aberto, aoFechar }: ModalCadastroUsuarioProps) => {
 
     const [nome, setNome] = useState('')
     const [email, setEmail] = useState('')
@@ -15,7 +21,8 @@ const ModalCadastroUsuario = () => {
     const [senha, setSenha] = useState('')
     const [senhaConfirmada, setSenhaConfirmada] = useState('')
 
-    const aoSubmeterFormular = (evento: React.FormEvent<HTMLFormElement>) => {
+    const aoSubmeterFormular = async (evento: React.FormEvent<HTMLFormElement>) => {
+        console.log(evento)
         evento.preventDefault()
         const usuario = {
             nome,
@@ -26,59 +33,77 @@ const ModalCadastroUsuario = () => {
             complemento
         }
         console.log(usuario)
-        alert('Usuário foi cadastrado com sucesso!')
+
+        const respose = await http.post('/public/registrar',
+            usuario
+        )
+            .then(() => {
+                alert('Usuário foi cadastrado com sucesso!')
+                setNome('')
+                setEmail('')
+                setEndereco('')
+                setComplemento('')
+                setCep('')
+                setSenha('')
+                setSenhaConfirmada('')
+                aoFechar()
+            })
+            .catch(() => alert('Algo deu errado!'))
+
+        console.log(respose)
+
     }
 
-    return (<AbModal 
-        titulo="Cadastrar" 
-        aberta={true}
-        aoFechar={() => console.log('fecha ai')}    
+    return (<AbModal
+        titulo="Cadastrar"
+        aberta={aberto}
+        aoFechar={aoFechar}
     >
         <section className="corpoModalCadastro">
             <figure>
                 <img src={imagemPrincipal} alt="Pessoa segurando uma chave na frente de uma tela de computador que está exibindo uma fechadura" />
             </figure>
             <form onSubmit={aoSubmeterFormular}>
-                <AbCampoTexto 
+                <AbCampoTexto
                     label="Nome"
                     value={nome}
                     onChange={setNome}
                 />
-                <AbCampoTexto 
+                <AbCampoTexto
                     label="E-mail"
                     value={email}
                     onChange={setEmail}
                     type="email"
                 />
-                <AbCampoTexto 
+                <AbCampoTexto
                     label="Endereço"
                     value={endereco}
                     onChange={setEndereco}
                 />
-                <AbCampoTexto 
+                <AbCampoTexto
                     label="Complemento"
                     value={complemento}
                     onChange={setComplemento}
                 />
-                <AbCampoTexto 
+                <AbCampoTexto
                     label="CEP"
                     value={cep}
                     onChange={setCep}
                 />
-                <AbCampoTexto 
+                <AbCampoTexto
                     label="Senha"
                     value={senha}
                     onChange={setSenha}
                     type="password"
                 />
-                <AbCampoTexto 
+                <AbCampoTexto
                     label="Confirmação da senha"
                     value={senhaConfirmada}
                     onChange={setSenhaConfirmada}
                     type="password"
                 />
                 <div className="acoes">
-                    <AbBotao texto="Cadastrar"/>
+                    <AbBotao texto="Cadastrar" />
                 </div>
             </form>
         </section>

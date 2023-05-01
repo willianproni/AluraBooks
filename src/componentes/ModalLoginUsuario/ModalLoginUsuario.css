@@ -1,0 +1,18 @@
+.CorpoModal {
+    display: flex;
+    align-items: center;
+    padding-top: 32px;
+}
+
+.CorpoModal form {
+    width: 500px;
+    max-width: 100%;
+}
+
+.buttonAction {
+    display: flex;
+    margin-top: 48px;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+}
