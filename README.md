@@ -28,6 +28,10 @@ Se liga nessa lista de tudo que utilizamos:
 
 E muito mais!
 
+## 🛠️ API utilizada
+
+https://github.com/viniciosneves/api-alurabooks
+
 ## 🛠️ Abrir e rodar o projeto
 
 Para abrir e rodar o projeto, execute `npm i` para instalar as dependências e `npm start` para inicar o projeto.
